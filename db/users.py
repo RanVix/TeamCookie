@@ -26,7 +26,7 @@ class User:
         self.role = data[6]
         self.description = data[7]
 
-        self.dict_data = {
+        self.public_data = {
             'id': self.id,
             'login': self.login,
             'name': self.name,
@@ -39,8 +39,11 @@ class User:
         ...
 
 
-def get_user(login: str, email: str) -> Optional[User]:
-    cursor.execute("SELECT * FROM users WHERE login=? AND email=?", (login, email))
+def get_user(login: str, email: Optional[str] = None) -> Optional[User]:
+    if email:
+        cursor.execute("SELECT * FROM users WHERE login=? AND email=?", (login, email))
+    else:
+        cursor.execute("SELECT * FROM users WHERE login=?", (login,))
     row = cursor.fetchone()
     if row:
         return User(row)
@@ -68,5 +71,4 @@ def save_user(login: str, email: str, password: str, name: str, surname: str, ro
         (login, email, password_hash, name, surname, role)
     )
     conn.commit()
-    return get_user(login, email).dict_data
-
+    return get_user(login, email).public_data
