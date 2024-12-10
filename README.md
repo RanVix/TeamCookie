@@ -5,7 +5,7 @@
 
 <details>
 <summary> <b>POST</b> <code>/api/login</code> - Вход </summary>
-##### headers
+##### Headers
 
 | Название | Тип    | Описание |
 |----------|--------|----------|
@@ -21,3 +21,5 @@
 **GET** `/api/users/<string:user_login>/avatar` - Аватарка пользователя
 
 **POST** `/api/users/<string:user_login>/avatar` - Изменить аватарку пользователя
+
+Разработчик: Ярослав Анохин (yarovich)
