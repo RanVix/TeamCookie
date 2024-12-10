@@ -48,5 +48,3 @@ def on_answer(data):
 def on_ice_candidate(data):
     print(f"Relaying ICE candidate from {data['from']} to {data['target']}")
     emit('ice_candidate', data, room=data['target'])
-
-

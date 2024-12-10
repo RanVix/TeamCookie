@@ -36,6 +36,12 @@ class User:
             'description': self.description,
         }
 
+    @property
+    def avatar(self):
+        filepath = os.path.join('./documents/avatars', f'{self.id}.png')
+        if os.path.exists(filepath):
+            return filepath
+
     def edit(self, name: str, surname: str, role: int, description: str) -> None:
         self.name = name
         self.surname = surname

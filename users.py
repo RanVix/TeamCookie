@@ -1,4 +1,7 @@
+import flask
+
 import db
+import os
 from main import *
 
 
@@ -39,6 +42,7 @@ def users(user_login: str):
         user = db.check_user(email, password)
         if user is None:
             return flask.abort(403)
+
         if not request.json:
             return flask.abort(400)
         data: dict = request.json
@@ -49,7 +53,21 @@ def users(user_login: str):
 @app.route('/api/users/<string:user_login>/avatar', methods=['GET', 'POST'])
 def users_avatar(user_login: str):
     if request.method == 'GET':
-        ...
+        user = db.get_user(user_login)
+        if user is None:
+            return flask.abort(404)
+        if user.avatar is None:
+            return flask.abort(404)
+        return flask.send_file(user.avatar, as_attachment=True)
 
     if request.method == 'POST':
-        ...
+        email = request.headers.get('email')
+        password = request.headers.get('password')
+        user = db.check_user(email, password)
+        if user is None:
+            return flask.abort(403)
+
+        file = request.files['file']
+        filepath = os.path.join('./documents/avatars', f'{user.id}.png')
+        file.save(filepath)
+        return flask.send_file(filepath, as_attachment=True)
