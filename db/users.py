@@ -26,7 +26,9 @@ class User:
         self.role = data[6]
         self.description = data[7]
 
-        self.public_data = {
+    @property
+    def public_data(self):
+        return {
             'login': self.login,
             'name': self.name,
             'surname': self.surname,
@@ -34,8 +36,16 @@ class User:
             'description': self.description,
         }
 
-    def edit(self) -> None:
-        ...
+    def edit(self, name: str, surname: str, role: int, description: str) -> None:
+        self.name = name
+        self.surname = surname
+        self.role = role
+        self.description = description
+        cursor.execute(
+            f"UPDATE users SET name=?, surname=?, role=?, description=? WHERE id={self.id}",
+            (name, surname, role, description)
+        )
+        conn.commit()
 
 
 def check_user(email: str, password: str):
@@ -44,7 +54,7 @@ def check_user(email: str, password: str):
     if not row:
         return None
     login, hash = row
-    if not bcrypt.checkpw(password.encode(), hash):
+    if not bcrypt.checkpw(password.encode(), bytes(hash.encode())):
         return None
     return get_user(login)
 
@@ -78,7 +88,7 @@ def save_user(login: str, email: str, password: str, name: str, surname: str, ro
         "INSERT INTO users "
         "(login, email, password_hash, name, surname, role) "
         "VALUES(?, ?, ?, ?, ?, ?)",
-        (login, email, password_hash, name, surname, role)
+        (login[:20], email[:256], password_hash, name[:100], surname[:100], role)
     )
     conn.commit()
     return get_user(login, email).public_data

@@ -40,7 +40,7 @@ POST /api/login :
     Логин пользователя
 
     Принимает:
-        json = {
+        headers = {
             'email': str,  # Почта
             'password': str,  # Пароль
         }
@@ -62,7 +62,53 @@ POST /api/login :
             }
 
 
-GET /api/users/<string:user_login>:
+GET /api/users/<string:user_login> :
+    Информация о пользователе
+
+    Возвращает:
+        status 404:
+            Не найдено
+
+        status 200:
+            json = {
+                'login': str,
+                'name': str,
+                'surname': str,
+                'role': int,
+                'description': str,
+            }
+
+
+PUT /api/users/<string:user_login> :
+    Изменить пользователя
+
+    Принимает:
+        headers = {
+            'email': str,  # Почта
+            'password': str,  # Пароль
+        }
+        json = {
+            'name': str,
+            'surname': str,
+            'role': int,
+            'description': str,
+        }
+
+    Возвращает:
+        status 400:
+            Неверный запрос.
+
+        status 403:
+            Нет доступа (неверный пароль или почта)
+
+        status 200:
+            json = {
+                'login': str,
+                'name': str,
+                'surname': str,
+                'role': int,
+                'description': str,
+            }
 
 """
 

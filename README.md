@@ -3,6 +3,8 @@
 
 **POST** `/api/register` - Регистрация
 
-**POST** `/api/login` - Логин
+**POST** `/api/login` - Вход
 
 **GET** `/api/users/<string:user_login>` - Информация о пользователе
+
+**PUT** `/api/users/<string:user_login>` - Изменить пользователя
