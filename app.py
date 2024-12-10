@@ -110,6 +110,29 @@ PUT /api/users/<string:user_login> :
                 'description': str,
             }
 
+
+GET /api/users/<string:user_login>/avatar :
+    Аватарка пользователя
+
+    Возвращает:
+        status 404:
+            Не найдено
+    ...
+
+
+POST /api/users/<string:user_login>/avatar :
+    Изменить аватарку пользователя
+
+    Принимает:
+        headers = {
+            'email': str,  # Почта
+            'password': str,  # Пароль
+        }
+
+    Возвращает:
+        status 403:
+            Нет доступа (неверный пароль или почта)
+
 """
 
 

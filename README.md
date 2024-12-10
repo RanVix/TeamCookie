@@ -3,7 +3,16 @@
 
 **POST** `/api/register` - Регистрация
 
-**POST** `/api/login` - Вход
+<details>
+<summary> <b>POST</b> <code>/api/login</code> - Вход </summary>
+##### headers
+
+| Название | Тип    | Описание |
+|----------|--------|----------|
+| email    | string | Почта    |
+| password | string | Пароль   |
+
+</details>
 
 **GET** `/api/users/<string:user_login>` - Информация о пользователе
 
