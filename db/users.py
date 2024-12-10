@@ -3,10 +3,10 @@ import bcrypt
 from .general import *
 
 cursor.execute("""CREATE TABLE IF NOT EXISTS users(
-    id INT PRIMARY KEY AUTOINCREMENT,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     login VARCHAR(20) NOT NULL,
     email VARCHAR(256) NOT NULL,
-    password_hash VARCHAR(100) NOT NULL
+    password_hash VARCHAR(100) NOT NULL,
     name VARCHAR(100) NOT NULL,
     surname VARCHAR(100) NOT NULL,
     role INT NOT NULL DEFAULT 0,
@@ -27,7 +27,6 @@ class User:
         self.description = data[7]
 
         self.public_data = {
-            'id': self.id,
             'login': self.login,
             'name': self.name,
             'surname': self.surname,
@@ -37,6 +36,17 @@ class User:
 
     def edit(self) -> None:
         ...
+
+
+def check_user(email: str, password: str):
+    cursor.execute("SELECT login, password_hash FROM users WHERE email=?", (email,))
+    row = cursor.fetchone()
+    if not row:
+        return None
+    login, hash = row
+    if not bcrypt.checkpw(password.encode(), hash):
+        return None
+    return get_user(login)
 
 
 def get_user(login: str, email: Optional[str] = None) -> Optional[User]:
@@ -53,11 +63,11 @@ def check_password(password: str, hashed: bytes) -> bool:
     return bcrypt.checkpw(password.encode(), hashed)
 
 
-def hash_password(password: str):
-    salt = os.urandom(16)
-    password_bytes = password.encode()
-    hashed_password = hashlib.sha256(salt + password_bytes).hexdigest()
-    return salt.hex() + hashed_password
+def hash_password(password: str) -> bytes:
+    # Генерация соли и хеширование пароля
+    salt = bcrypt.gensalt()  # Генерируем соль
+    hashed = bcrypt.hashpw(password.encode(), salt)
+    return hashed
 
 
 def save_user(login: str, email: str, password: str, name: str, surname: str, role: int):

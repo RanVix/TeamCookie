@@ -2,8 +2,8 @@ import db
 from main import *
 
 
-@app.route('/api/users', methods=['POST'])
-def users():
+@app.route('/api/register', methods=['POST'])
+def register():
     """
         Принимает:
         json = {
@@ -18,7 +18,7 @@ def users():
 
     """
 
-    if request.method == 'GET':
+    if request.method == 'POST':
         if not request.json:
             return flask.abort(400)
         data: dict = request.json
@@ -26,6 +26,26 @@ def users():
         if user:
             return flask.abort(409)
         return db.save_user(data['login'], data['email'], data['password'], data['name'], data['surname'], data['role'])
+
+
+@app.route('/api/login', methods=['POST'])
+def login():
+    """
+        Принимает:
+        json = {
+            'email': str,  # Почта
+            'password': str,  # Пароль
+        }
+
+    """
+    if request.method == 'POST':
+        if not request.json:
+            return flask.abort(400)
+        data: dict = request.json
+        user = db.check_user(data['email'], data['password'])
+        if user is None:
+            return flask.abort(404)
+        return user.public_data
 
 
 @app.route('/api/users/<string:user_login>', methods=['GET', 'PUT', 'DELETE'])

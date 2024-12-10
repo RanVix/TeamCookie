@@ -6,7 +6,9 @@
 Основная ссылка: http://127.0.0.1:5000
 
 
-POST /api/users:
+POST /api/register :
+    Регистрация пользователя
+
     Принимает:
         json = {
             'login': str,  # Логин
@@ -18,12 +20,40 @@ POST /api/users:
         }
 
     Возвращает:
+        status 400:
+            Неверный запрос.
+
         status 409:
             Данный пользователь уже существует
 
         status 200:
             json = {
-                'id': int,
+                'login': str,
+                'name': str,
+                'surname': str,
+                'role': int,
+                'description': str,
+            }
+
+
+POST /api/login :
+    Логин пользователя
+
+    Принимает:
+        json = {
+            'email': str,  # Почта
+            'password': str,  # Пароль
+        }
+
+    Возвращает:
+        status 400:
+            Неверный запрос.
+
+        status 404:
+            Не найдено (не верная почта или пароль)
+
+        status 200:
+            json = {
                 'login': str,
                 'name': str,
                 'surname': str,

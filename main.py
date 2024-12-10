@@ -7,6 +7,7 @@ from flask_socketio import SocketIO, emit, join_room, leave_room
 
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
+app.config['UPLOAD_FOLDER'] = './documents/uploads'
 socketio = SocketIO(app, cors_allowed_origins="*")
 cors = CORS(app)
 api = Api(app)
