@@ -38,9 +38,10 @@ GET /api/users/<string:user_login>:
 
 
 from main import *
-from websocket import *
+from users import *
+from webrtc import *
 
 
 if __name__ == "__main__":
-    socketio.run(app, debug=True)
+    socketio.run(app, debug=True, allow_unsafe_werkzeug=True)
     # app.run(debug=True)

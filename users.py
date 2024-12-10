@@ -1,6 +1,7 @@
 import db
 from main import *
 
+
 @app.route('/api/users', methods=['POST'])
 def users():
     """

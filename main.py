@@ -4,9 +4,10 @@ from flask_restful import Api, Resource
 from flask_cors import CORS, cross_origin
 from flask_socketio import SocketIO, emit, join_room, leave_room
 
+
 app = Flask(__name__)
-socketio = SocketIO(app, cors_allowed_origins="*")
 app.config['CORS_HEADERS'] = 'Content-Type'
+socketio = SocketIO(app, cors_allowed_origins="*")
 cors = CORS(app)
 api = Api(app)
 
