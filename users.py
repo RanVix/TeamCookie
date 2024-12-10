@@ -24,7 +24,7 @@ def users():
         user = db.get_user(data['login'], data['email'])
         if user:
             return flask.abort(409)
-        return db.save_user()
+        return db.save_user(data['login'], data['email'], data['password'], data['name'], data['surname'], data['role'])
 
 
 @app.route('/api/users/<string:user_login>', methods=['GET', 'PUT', 'DELETE'])
