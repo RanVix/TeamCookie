@@ -8,3 +8,7 @@
 **GET** `/api/users/<string:user_login>` - Информация о пользователе
 
 **PUT** `/api/users/<string:user_login>` - Изменить пользователя
+
+**GET** `/api/users/<string:user_login>/avatar` - Аватарка пользователя
+
+**POST** `/api/users/<string:user_login>/avatar` - Изменить аватарку пользователя
