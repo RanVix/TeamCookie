@@ -3,7 +3,7 @@ import bcrypt
 from .general import *
 
 cursor.execute("""CREATE TABLE IF NOT EXISTS users(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INT PRIMARY KEY AUTOINCREMENT,
     login VARCHAR(20) NOT NULL,
     email VARCHAR(256) NOT NULL,
     password_hash VARCHAR(100) NOT NULL,

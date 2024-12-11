@@ -3,16 +3,7 @@
 
 **POST** `/api/register` - Регистрация
 
-<details>
-<summary> <b>POST</b> <code>/api/login</code> - Вход </summary>
-##### Headers
-
-| Название | Тип    | Описание |
-|----------|--------|----------|
-| email    | string | Почта    |
-| password | string | Пароль   |
-
-</details>
+**POST** `/api/login` - Вход
 
 **GET** `/api/users/<string:user_login>` - Информация о пользователе
 
@@ -21,5 +12,11 @@
 **GET** `/api/users/<string:user_login>/avatar` - Аватарка пользователя
 
 **POST** `/api/users/<string:user_login>/avatar` - Изменить аватарку пользователя
+
+**GET** `/api/rooms` - Получить все доступные комнаты
+
+**POST** `/api/rooms` - Создать комнату
+
+**PUT** `/api/rooms/` - 
 
 Разработчик: Ярослав Анохин (yarovich)
