@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 
 const geistSans = localFont({
-  src: "./fonts/SegoeUI.ttf",
+  src: "../public/fonts/SegoeUI.ttf",
   variable: "--font-geist-sans",
   weight: "100 900",
 });

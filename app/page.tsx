@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import Link from 'next/link';
 import UnknowAva from "../public/assets/DefAva.png";
 
 const ProfilePage: React.FC = () => {
@@ -33,9 +34,11 @@ const ProfilePage: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <div className="flex flex-grow">
-        <div className="w-[310px] bg-[#606C38] p-4 bg-opacity-55 fixed h-full">
-          <h2 className="text-white text-xl">Тут будет меню</h2>
-        </div>
+      <div className="w-[310px] bg-[#606C38] p-4 bg-opacity-55 fixed h-full">
+      <Link href="/pages/callpage">
+      <button className="text-white text-xl hover:cursor-pointer">Тут будет меню</button>
+            </Link>
+      </div>
         <div className="flex-grow ml-[310px] p-8">
           <div className="flex">
             <div className="flex flex-col items-start">
